@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
 import { Tarefa } from "../models/Tarefa";
 
-function listarTarefas() {
-    const [tarefas, setTarefas] = useState<Tarefa[]>([]);
+function ListarTarefas() {
+  const [tarefas, setTarefas] = useState<Tarefa[]>([]);
 
-    useEffect(() => {
-        pesquisarTarefas();
-    });
+  useEffect(() => {
+    pesquisarTarefas();
+  }, []);
 
   function pesquisarTarefas() {
-    fetch("http://localhost:5000/api/categoria/listar")
-      .then((resposta) => resposta.json())
-      .then((tarefas) => {
-        // console.table(tarefas);
+    fetch("http://localhost:5000/api/tarefas/listar")
+      .then((resposta) => {
+        if (!resposta.ok) {
+          throw new Error("Erro ao buscar tarefas");
+        }
+        return resposta.json();
+      })
+      .then((tarefas: Tarefa[]) => {
         setTarefas(tarefas);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar tarefas:", error);
       });
- }
+  }
 
   return (
     <div id="listar_tarefas">
@@ -24,7 +31,7 @@ function listarTarefas() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Titulo</th>
+            <th>Título</th>
             <th>Descrição</th>
             <th>Status</th>
             <th>Criado em</th>
@@ -46,4 +53,4 @@ function listarTarefas() {
   );
 }
 
-export default listarTarefas;
+export default ListarTarefas;
