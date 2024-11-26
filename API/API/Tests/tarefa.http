@@ -10,3 +10,12 @@ Content-Type: application/json
     "descricao": "Estudar Node.js para desenvolver aplicações web",
     "categoriaId": "6d091456-5a2f-4b5a-98fc-f1a3b50a627d"
 }
+
+### Alterar o status da tarefa
+PUT http://localhost:5000/api/tarefas/alterar/e5d4a7b9-1f9e-4c4a-ae3b-5b7c1a9d2e3f
+
+### Não concluidas
+GET http://localhost:5000/api/tarefas/naoconcluidas
+
+### Concluídas
+GET http://localhost:5000/api/tarefas/concluidas
